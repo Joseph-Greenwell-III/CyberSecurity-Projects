@@ -4,7 +4,7 @@
 
 ### rule logic
 
-WindowsEvent 
+WindowsEvent<br>
 | where Channel == "JonMon/Operational" and EventID == 3 and EventData.SourceProcessIntegrityLevel == "High" and (EventData .TargetProcessIntegrityLevel == "High" or EventData.TargetProcessIntegrityLevel == "System")<br>
 | where EventData.SourceProcessFilePath !contains "WindowsTerminal.exe"<br>
 | project TimeGenerated, Computer, EventID, EventData.SourceProcessFilePath, EventData.SourceProcessUser, EventData.TargetProcessFilePath, EventData.TargetProcessIntegrityLevel, EventData.TargetProcessUser, EventData.TargetThreadId
@@ -19,9 +19,9 @@ Privilege Escalation
 
 ### rule logic
 
-WindowsEvent
-| where Channel == "JonMon/Operational"
-| where EventID == 16 
+WindowsEvent<br>
+| where Channel == "JonMon/Operational"<br>
+| where EventID == 16 <br>
 | where EventData.AssemblyName contains "Rubeus"
 
 # Capstone - WMI Event Subscription
@@ -30,7 +30,7 @@ WindowsEvent
 
 ### rule logic
 
-WindowsEvent
+WindowsEvent<br>
 | where Provider == "JonMon"<br>
 | where EventID == 17<br>
 | project TimeGenerated, Provider, EventID, EventData.ProcessFilePath, EventData.ProcessId, EventData.ProcessUser, EventData.ProcessUserLogonId, EventData.ESS, EventData.Consumer, EventData.PossibleCause
@@ -45,7 +45,7 @@ Privilege Escalation
 
 ### rule logic
 
-WindowsEvent
+WindowsEvent<br>
 | where EventID == 4624<br>
 | where EventData.LogonType == 3<br>
 | project<br>
@@ -88,8 +88,8 @@ WindowsEvent
 
 ### rule logic
 
-WindowsEvent
-| where Provider == "Microsoft-Windows-Security-Auditing" and EventID == 4662
+WindowsEvent<br>
+| where Provider == "Microsoft-Windows-Security-Auditing" and EventID == 4662<br>
 | where EventData.SubjectUserName !contains "$" and EventData.Properties contains "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" and EventData.Properties contains "19195a5b-6da0-11d0-afd3-00c04fd930c9"
 
 ### MITRE ATT&CK
@@ -104,9 +104,9 @@ Credential Access
 
 ### rule logic
 
-WindowsEvent 
-| where Channel == "JonMon/Operational" and EventID == 3 and EventData.SourceProcessIntegrityLevel == "High" and (EventData .TargetProcessIntegrityLevel == "High" or EventData.TargetProcessIntegrityLevel == "System")
-| where EventData.SourceProcessFilePath !contains "WindowsTerminal.exe"
+WindowsEvent<br>
+| where Channel == "JonMon/Operational" and EventID == 3 and EventData.SourceProcessIntegrityLevel == "High" and (EventData .TargetProcessIntegrityLevel == "High" or EventData.TargetProcessIntegrityLevel == "System")<br>
+| where EventData.SourceProcessFilePath !contains "WindowsTerminal.exe"<br>
 | project TimeGenerated, Computer, EventID, EventData.SourceProcessFilePath, EventData.SourceProcessUser, EventData.TargetProcessFilePath, EventData.TargetProcessIntegrityLevel, EventData.TargetProcessUser, EventData.TargetThreadId
 
 # Capstone - Mshta Execution
@@ -115,8 +115,8 @@ WindowsEvent
 
 ### rule logic
 
-WindowsEvent
-| where Provider == "JonMon" and EventID == 1
+WindowsEvent<br>
+| where Provider == "JonMon" and EventID == 1<br>
 | where EventData.ProcessFilePath endswith "mshta.exe"
 
 # Capstone - CobaltStrike Named Pipes
@@ -125,9 +125,9 @@ WindowsEvent
 
 ### rule logic
 
-let CobaltStrikeDefaults= dynamic([@"msagent_", @"MSSE-", @"postex_", @"status_", @"mypipe-f", @"mypipe-h",@"ntsvcs_",@"scerpc_", @"mojo.5688.8052."]);
-
-WindowsEvent
-| where Channel == "JonMon/Operational"
-| where EventID == 11
+let CobaltStrikeDefaults= dynamic([@"msagent_", @"MSSE-", @"postex_", @"status_", @"mypipe-f", @"mypipe-h",@"ntsvcs_",@"scerpc_", @"mojo.5688.8052."]);<br>
+<br>
+WindowsEvent<br>
+| where Channel == "JonMon/Operational"<br>
+| where EventID == 11<br>
 | where EventData.FileName has_any(CobaltStrikeDefaults)
