@@ -1,5 +1,5 @@
 # SOC Alerts Analysis Project
-This repository contains my analysis of multiple Microsoft Sentinel. The project demonstrates detection, investigation, and recommended mitigation/remediation steps.
+This repository contains my analysis of multiple alerts in Microsoft Sentinel. The project demonstrates detection, investigation, and recommended mitigation/remediation steps.
 
 ## Scenario
 As a SOC Analyst, I have been given alerts regarding various activities across multiple hosts. Some of them are connected and some of them are not. I need to:
@@ -17,9 +17,9 @@ As a SOC Analyst, I have been given alerts regarding various activities across m
     - Playbook Generation Ideas
     - Containment Strategy
 
-## Topology
+## Network Topology Diagram
 
-![Topology Diagram](Topology.png)
+![Ask me for a copy! :)](Topology.png)
 
 ## Workflow
 1. Collected alert logs from Microsoft Sentinel
