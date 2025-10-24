@@ -5,8 +5,8 @@
 ### rule logic
 
 WindowsEvent 
-| where Channel == "JonMon/Operational" and EventID == 3 and EventData.SourceProcessIntegrityLevel == "High" and (EventData .TargetProcessIntegrityLevel == "High" or EventData.TargetProcessIntegrityLevel == "System")
-| where EventData.SourceProcessFilePath !contains "WindowsTerminal.exe"
+| where Channel == "JonMon/Operational" and EventID == 3 and EventData.SourceProcessIntegrityLevel == "High" and (EventData .TargetProcessIntegrityLevel == "High" or EventData.TargetProcessIntegrityLevel == "System")<br>
+| where EventData.SourceProcessFilePath !contains "WindowsTerminal.exe"<br>
 | project TimeGenerated, Computer, EventID, EventData.SourceProcessFilePath, EventData.SourceProcessUser, EventData.TargetProcessFilePath, EventData.TargetProcessIntegrityLevel, EventData.TargetProcessUser, EventData.TargetThreadId
 
 ### MITRE ATT&CK
@@ -31,8 +31,8 @@ WindowsEvent
 ### rule logic
 
 WindowsEvent
-| where Provider == "JonMon"
-| where EventID == 17
+| where Provider == "JonMon"<br>
+| where EventID == 17<br>
 | project TimeGenerated, Provider, EventID, EventData.ProcessFilePath, EventData.ProcessId, EventData.ProcessUser, EventData.ProcessUserLogonId, EventData.ESS, EventData.Consumer, EventData.PossibleCause
 
 ### MITRE ATT&CK
@@ -46,40 +46,40 @@ Privilege Escalation
 ### rule logic
 
 WindowsEvent
-| where EventID == 4624
-| where EventData.LogonType == 3
-| project
-    TimeGenerated,
-    Computer,
-    TargetLogonId = tostring(EventData.TargetLogonId),
-    TargetUserName = tostring(EventData.TargetUserName),
-    TargetDomainName = tostring(EventData.TargetDomainName),
-    LogonType = tostring(EventData.LogonType),
-    AuthenticationPackageName = tostring(EventData.AuthenticationPackageName)
-| join kind=inner (
-    WindowsEvent
-    | where EventID == 4688
-    | project
-        TimeGenerated,
-        Computer,
-        TargetLogonId = tostring(EventData.TargetLogonId),
-        NewProcessName = tostring(EventData.NewProcessName),
+| where EventID == 4624<br>
+| where EventData.LogonType == 3<br>
+| project<br>
+    TimeGenerated,<br>
+    Computer,<br>
+    TargetLogonId = tostring(EventData.TargetLogonId),<br>
+    TargetUserName = tostring(EventData.TargetUserName),<br>
+    TargetDomainName = tostring(EventData.TargetDomainName),<br>
+    LogonType = tostring(EventData.LogonType),<br>
+    AuthenticationPackageName = tostring(EventData.AuthenticationPackageName)<br>
+| join kind=inner (<br>
+    WindowsEvent<br>
+    | where EventID == 4688<br>
+    | project<br>
+        TimeGenerated,<br>
+        Computer,<br>
+        TargetLogonId = tostring(EventData.TargetLogonId),<br>
+        NewProcessName = tostring(EventData.NewProcessName),<br>
         CommandLine = tostring(EventData.CommandLine),
-        ParentProcessName = tostring(EventData.ParentProcessName),
-        SubjectUserName = tostring(EventData.SubjectUserName)
-) on TargetLogonId
-| project
-    TimeGenerated,
-    TargetLogonId,
-    TargetUserName,
-    TargetDomainName,
-    LogonType,
-    AuthenticationPackageName,
-    NewProcessName,
-    CommandLine,
-    ParentProcessName,
-    SubjectUserName,
-    Computer
+        ParentProcessName = tostring(EventData.ParentProcessName),<br>
+        SubjectUserName = tostring(EventData.SubjectUserName)<br>
+) on TargetLogonId<br>
+| project<br>
+    TimeGenerated,<br>
+    TargetLogonId,<br>
+    TargetUserName,<br>
+    TargetDomainName,<br>
+    LogonType,<br>
+    AuthenticationPackageName,<br>
+    NewProcessName,<br>
+    CommandLine,<br>
+    ParentProcessName,<br>
+    SubjectUserName,<br>
+    Computer<br>
 | order by TimeGenerated desc
 
 # Capstone - Possible DCSync
