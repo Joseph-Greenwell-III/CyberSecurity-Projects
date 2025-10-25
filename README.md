@@ -22,8 +22,6 @@ On **October 9, 2025**, an attacker gained initial access through a malicious HT
 6. **Domain Dominance:** DCSync replication abuse for domain credential extraction.
 7. **Cleanup:** Event logs cleared to remove traces.
 
-The full timeline and detailed MITRE mappings are available in [Summary_of_Findings.md](Summary_of_Findings.md).
-
 ---
 
 ## Tools and Technologies
@@ -55,11 +53,9 @@ The full timeline and detailed MITRE mappings are available in [Summary_of_Findi
 ```
 SOC-Alerts-Analysis/
 │
-├── README.md                      # Project overview (this file)
-├── Summary_of_Findings.md          # Full report with alert analysis and KQL queries
-├── Alerts/                         # Individual alert breakdowns (optional)
-├── Remediations/                   # Mitigation and response recommendations
-└── Resources/                      # Attacker overview and reference materials
+├── README.md                       # Project overview (this file)
+├── Alerts/                         # Full report with alert analysis and KQL queries
+└── Resources/                      # reference materials
 ```
 
 ---
@@ -72,4 +68,4 @@ Cybersecurity Analyst | Microsoft Sentinel | Threat Detection & Response
 ---
 
 ## Acknowledgements
-This project was completed as part of a SOC Analyst capstone simulation. Special thanks to the course instructors and peers who provided post-analysis attacker overviews for validation and learning.
+This project was completed as part of a SOC Analyst capstone simulation. Special thanks to the course instructor Johnny Johnson and peers who provided feedback for validation and learning.
